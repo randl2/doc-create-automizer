@@ -41,21 +41,21 @@ st.caption("Завантажте Word-шаблон і Excel-таблицю, що
 def clean_and_replace_run_text(paragraphs, company, materials):
     """Склеює розірвані плейсхолдери та підставляє значення зі збереженням форматування."""
     for p in paragraphs:
-        # 1. Склеюємо розірвані Вордом шматки плейсхолдерів[cite: 2]
+        # 1. Склеюємо розірвані Вордом шматки плейсхолдерів
         i = 0
         while i < len(p.runs) - 1:
-            if any(part in p.runs[i].text for part in ["Company", "Material", "_name"]):[cite: 2]
-                p.runs[i].text += p.runs[i + 1].text[cite: 2]
-                p._p.remove(p.runs[i + 1]._r)[cite: 2]
+            if any(part in p.runs[i].text for part in ["Company", "Material", "_name"]):
+                p.runs[i].text += p.runs[i + 1].text
+                p._p.remove(p.runs[i + 1]._r)
                 continue
             i += 1
 
-        # 2. Заміна тексту[cite: 2]
-        for run in p.runs:[cite: 2]
-            if "Company_name" in run.text:[cite: 2]
-                run.text = run.text.replace("Company_name", company)[cite: 2]
-            if "Material_name" in run.text:[cite: 2]
-                run.text = run.text.replace("Material_name", materials)[cite: 2]
+        # 2. Заміна тексту
+        for run in p.runs:
+            if "Company_name" in run.text:
+                run.text = run.text.replace("Company_name", company)
+            if "Material_name" in run.text:
+                run.text = run.text.replace("Material_name", materials)
 
 
 def replace_placeholders(doc_path, company, materials, output_docx):
